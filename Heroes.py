@@ -36,7 +36,7 @@ class Heroes:
         self.race = race.lower()
         self.level = lvl
         self.hp = hp
-        self.class_lvl_dict = make_cl_dict()
+        self.class_lvl_dict = self.make_cl_dict()
 
     def make_cl_dict(self):
         cl_dict = dict()
