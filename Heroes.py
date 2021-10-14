@@ -20,14 +20,14 @@
 
 class Heroes:
     def __init__(self, name, pf_class, race, lvl, hp):
-        '''Enter class(es), race, level(s), and hp
+        """Enter class(es), race, level(s), and hp
 
         If multiple classes, enter total character lvl
-        followed by each class lvl in order'''
+        followed by each class lvl in order"""
         self.name = name
         self.pf_class = pf_class
 
-        if isinstance(self.pf_class, list): # in case of multiclassing
+        if isinstance(self.pf_class, list):  # in case of multiclassing
             for i in self.pf_class:
                 self.pf_class = self.pf_class[i].lower()
         else:
@@ -40,11 +40,11 @@ class Heroes:
 
     def make_cl_dict(self):
         cl_dict = dict()
-        if isinstance(self.level, list): #If multi-multiclassing/has >1 lvls
-            cl_dict.update({"character" : self.level[0]}) #adds character level
+        if isinstance(self.level, list):  # If multi-multiclassing/has >1 lvls
+            cl_dict.update({"character": self.level[0]})  # adds character level
             for i in self.pf_class:
-                cl_dict.update({self.pf_class[i] : self.level[i+1]})
-                # i+1 used since level[0] has the cummulative level
+                cl_dict.update({self.pf_class[i]: self.level[i + 1]})
+                # i+1 used since level[0] has the cumulative level
         else:
-            cl_dict.update({self.pf_class : self.level})
+            cl_dict.update({self.pf_class: self.level})
         return cl_dict

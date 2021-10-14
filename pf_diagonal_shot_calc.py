@@ -1,4 +1,4 @@
-#Zaela
+# Zaela
 #
 # Range increment calculator for shooting diagonally in Pathfinder.
 # Takes two arguments, length and height, then returns the distance of the shot.
@@ -6,12 +6,13 @@
 # up to the nearest 5 foot increment
 
 def diagonal_shot(length, height):
-    distance = (length ** 2 + height ** 2) ** 0.5 # c = sqrt(a^2 + b^2)
+    distance = (length ** 2 + height ** 2) ** 0.5  # c = sqrt(a^2 + b^2)
     if distance % 5 >= 1:
         distance += 5 - (distance % 5)
-    #else:
-        #distance -= distance % 5
+    # else:
+    # distance -= distance % 5
     return int(distance)
+
 
 def main():
     done = False
@@ -22,6 +23,7 @@ def main():
         cont = input("Continue? (y, n) : ")
         if cont in ["N", "n"]:
             done = True
+
 
 if __name__ == '__main__':
     main()

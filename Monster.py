@@ -10,7 +10,7 @@ class Monster:
         self.hp = hp
         self.dr = dr
         self.dr_type = dr_type
-        if self.dr_type != None:
+        if self.dr_type is not None:
             if isinstance(dr_type, str):
                 self.dr_type = self.dr_type.lower()
             else:
@@ -28,10 +28,8 @@ class Monster:
                 if rhs[i].lower() in self.dr_type:
                     dr_pass = True
                     break
-            if dr_pass == True:
+            if dr_pass:
                 self.hp -= rhs[0]
             else:
                 self.hp -= (rhs[0] - self.dr)
             print(self.hp)
-
-
