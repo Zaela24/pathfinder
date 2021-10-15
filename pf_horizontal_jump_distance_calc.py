@@ -16,6 +16,11 @@
 MIN_FALLING_SPEED = 60
 MAX_FALLING_SPEED = 500
 
+FEATHER_HEIGHT = 3
+
+def quadratic_upper(a, b, c):
+    d = (b ** 2) - (4 * a * c)
+    return (-b - d ** 0.5) / (2 * a)
 
 def long_jump(height_difference, distance, featherfall):
     """
@@ -35,20 +40,52 @@ def long_jump(height_difference, distance, featherfall):
     :return: int
     """
     if height_difference == 0:
+
+        max_height = distance / 4
+
+        if featherfall and max_height > FEATHER_HEIGHT:
+            # horizontal distance (x-axis coord) where the player reaches max_height - FEATHER_HEIGHT
+            feather_point = quadratic_upper(-1, distance, -distance * (max_height - FEATHER_HEIGHT))
+
+            # calculate slope at feather_point by using derivative of jump equation
+            slope = 1 - feather_point / (distance / 2)
+
+
         # distances should always be in increments of 5 feet, though the ternary expression below was written on the
         # off chance a user enters a value not divisible by five.
         return distance if distance % 5 == 0 else distance + (5 - distance % 5)  # rounds up to nearest 5
 
     elif height_difference > 0:
+
         if height_difference >= distance:
             return -1  # impossible jump
+
+        #if featherfall:
+            # calc
+
         acrobatics = 5
-        while -1 / acrobatics * distance ** 2 + distance < height_difference:
+        # x - x^2 / desired_distance where desired_distance is the distance in feet between the starting point and where
+        # the player would land if they jumped to a space at the same height is the equation for the parabola for long
+        # jumps within Pathfinder 1e. In this case desired_distance is equivalent to the acrobatics check required to
+        # make the jump.
+        while distance - distance ** 2 / acrobatics < height_difference:
             acrobatics += 5
         return acrobatics
 
-    #elif height_difference < 0:
+    elif height_difference < 0:
+
+        #if featherfall:
+            # calc
+
+        acrobatics = 5
+        while distance - distance ** 2 / acrobatics < height_difference:
+            acrobatics += 5
+        return acrobatics
+
+
 
 
     else:
         return -2
+
+print(long_jump(0, 20, True))
